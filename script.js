@@ -34,6 +34,20 @@ const game = (function() {
                 console.log(`${board[4]} has won`);
             }
         }
+        // // Check for ties
+        if (tieCheck()) {
+            console.log("It's a tie!");
+        }
+    }
+    // Protocol to check for ties
+    const tieCheck = function () {
+        let tie = true;
+        for (i=0; i<9; i++) {
+            if (game.board[i] == 0) {
+                tie = false;
+            }
+        }
+        return tie;
     }
     const userMove = function(tile) {
         if (board[tile] == 0) {
@@ -42,7 +56,9 @@ const game = (function() {
             console.log("Player moved", game.board);
             winCheck();
             // Opponent moves:
-            oppMove();
+            if (!(tieCheck())) {
+                oppMove();
+            }
         }
     }
     const oppMove = function() {
@@ -55,5 +71,5 @@ const game = (function() {
             oppMove();
         }
     }
-    return {board, win, winCheck, userMove, oppMove, initGame, user, opp};
+    return {board, win, winCheck, tieCheck, userMove, oppMove, initGame, user, opp};
 })();
