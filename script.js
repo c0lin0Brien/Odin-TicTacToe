@@ -1,7 +1,4 @@
-// TO DO:
-// Fix ties
-// End game after a win
-// Making the Game Board
+// Making the game board
 const gameBoard = (function() {
     let board = ["", "", "",
                  "", "", "",
@@ -33,6 +30,17 @@ const game = (function() {
                     userMove(box);
                 }
             }
+        }
+        // Reset button creation
+        const reset = document.createElement("button");
+        reset.innerHTML = "Reset";
+        reset.classList.add("button")
+        container.appendChild(reset);
+        reset.onclick = function () {
+            game.board = ["", "", "",
+                 "", "", "",
+                 "", "", ""];
+            location.reload();
         }
     })();
     const initPlayers = function (selection, other) {

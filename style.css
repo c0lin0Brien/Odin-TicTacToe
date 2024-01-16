@@ -28,3 +28,9 @@ body {
     border-right: 2px solid black;
     border-left: 2px solid black;
 }
+.button {
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    margin-top: 10%;
+}
