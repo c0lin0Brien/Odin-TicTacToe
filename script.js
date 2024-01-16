@@ -62,10 +62,6 @@ const game = (function() {
                 return true;
             }
         }
-        // // Check for ties
-        if (tieCheck()) {
-            console.log("It's a tie!");
-        }
         return false;
     }
     // Protocol to check for ties
@@ -76,7 +72,12 @@ const game = (function() {
                 tie = false;
             }
         }
-        return tie;
+        if (tie && !win) {
+            console.log("It's a tie!");
+            return true;
+        } else {
+            return false;
+        }
     }
     const userMove = function(box) {
         if (!game.win) {
@@ -86,7 +87,7 @@ const game = (function() {
                 // Player moves:
                 console.log("Player moved", game.board);
                 // Opponent moves:
-                if (!(tieCheck()) && !(winCheck())) {
+                if (!(winCheck()) && !(tieCheck())) {
                     oppMove();
                 }
             }
@@ -100,6 +101,7 @@ const game = (function() {
             oppSquare.textContent = opp.token;
             console.log("Opponent moved", game.board);
             winCheck();
+            tieCheck();
         } else {
             oppMove();
         }
