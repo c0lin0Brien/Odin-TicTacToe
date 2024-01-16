@@ -42,6 +42,12 @@ const game = (function() {
                  "", "", ""];
             location.reload();
         }
+        // Signature
+        const signature = document.createElement("div");
+        signature.textContent = "Made By Colin O'Brien";
+        signature.style.textAlign = "right";
+        signature.style.marginTop = "2%";
+        container.appendChild(signature);
     })();
     const initPlayers = function (selection, other) {
         let user = player(selection);
