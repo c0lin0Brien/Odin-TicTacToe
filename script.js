@@ -1,6 +1,4 @@
 // TO DO:
-// - Register Horizontal wins
-// 
 // Making the Game Board
 const gameBoard = (function() {
     let board = ["", "", "",
@@ -45,11 +43,14 @@ const game = (function() {
     const [user, opp] = initPlayers("X", "O");
     const winCheck = function () {
         for (i=0; i<3; i++) {
-            // Check rows and columns for 3 in a row
-            if ((board[i * 3] != "" && (board[i * 3] == board[(i * 3) + 1] && board[(i * 3) + 1] == board[(i * 3) + 2])) ||
-                (board[i] != "" && (board[i] == board[i+3] && board[i+3] == board[i+6]))) {
-                    console.log(`${user.token} has won`);
+            // Check rows for a win
+            if (board[i * 3] != "" && (board[i * 3] == board[(i * 3) + 1] && board[(i * 3) + 1] == board[(i * 3) + 2])) {
+                    console.log(`${board[i * 3]} has won`);
                     return true;
+            // Check columns for a win
+            } else if (board[i] != "" && (board[i] == board[i+3] && board[i+3] == board[i+6])) {
+                console.log(`${board[i]} has won`);
+                return true;
             // Check diagonals for a win
             } else if (board[4] != "" && ((board[0] == board[4] && board[4] == board[8]) ||
                         (board[2] == board[4] && board[4] == board[6]))){
