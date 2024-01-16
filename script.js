@@ -54,7 +54,7 @@ const game = (function() {
             // Check diagonals for a win
             } else if (board[4] != "" && ((board[0] == board[4] && board[4] == board[8]) ||
                         (board[2] == board[4] && board[4] == board[6]))){
-                console.log(`${user.token} has won`);
+                console.log(`${board[4]} has won`);
                 return true;
             }
         }
