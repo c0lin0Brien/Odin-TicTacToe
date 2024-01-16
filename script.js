@@ -45,19 +45,20 @@ const game = (function() {
             // Check rows and columns for 3 in a row
             if (board[i] != "" && (board[i] == board[i+1] && board[i+1] == board[i+2] ||
                 board[i] == board[i+3] && board[i+3] == board[i+6])) {
-                    game.win = true;
                     console.log(`${board[i]} has won`);
+                    return true;
             // Check diagonals for a win
             } else if (board[4] != "" && ((board[0] == board[4] && board[4] == board[8]) ||
                         (board[2] == board[4] && board[4] == board[6]))){
-                game.win = true;
                 console.log(`${board[4]} has won`);
+                return true;
             }
         }
         // // Check for ties
         if (tieCheck()) {
             console.log("It's a tie!");
         }
+        return false;
     }
     // Protocol to check for ties
     const tieCheck = function () {
@@ -75,9 +76,8 @@ const game = (function() {
             box.textContent = user.token;
             // Player moves:
             console.log("Player moved", game.board);
-            winCheck();
             // Opponent moves:
-            if (!(tieCheck())) {
+            if (!(tieCheck()) && !(winCheck())) {
                 oppMove();
             }
         }
@@ -85,7 +85,7 @@ const game = (function() {
     const oppMove = function() {
         let choice = Math.floor(Math.random() * 9);
         let oppSquare = document.getElementById(`${choice}`);
-        if (board[choice] == "") {
+        if ((board[choice] == "") && win == false) {
             board[choice] = opp.token;
             oppSquare.textContent = opp.token;
             console.log("Opponent moved", game.board);
