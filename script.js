@@ -97,10 +97,8 @@ const game = (function() {
         }
     }
     const winMessage = function(winner) {
-        let winWin = document.createElement("div");
-        winWin.classList.add("winMessage");
-        winWin.textContent = `${winner} has won!`;
-        container.appendChild(winWin);
+        let title = document.querySelector(".title");
+        title.textContent = `${winner} has won!`;
     }
     const userMove = function(box) {
         if (!game.win) {
