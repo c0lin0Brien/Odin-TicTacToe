@@ -1,4 +1,6 @@
 // TO DO:
+// Fix ties
+// End game after a win
 // Making the Game Board
 const gameBoard = (function() {
     let board = ["", "", "",
@@ -14,7 +16,6 @@ const player = function(token) {
 const game = (function() {
     let board = gameBoard.board;
     let win = false;
-    let borders = [];
     // Visual Board
     const initBoard = (function() {
         for (i=0; i<3; i++) {
@@ -46,15 +47,18 @@ const game = (function() {
             // Check rows for a win
             if (board[i * 3] != "" && (board[i * 3] == board[(i * 3) + 1] && board[(i * 3) + 1] == board[(i * 3) + 2])) {
                     console.log(`${board[i * 3]} has won`);
+                    game.win = true;
                     return true;
             // Check columns for a win
             } else if (board[i] != "" && (board[i] == board[i+3] && board[i+3] == board[i+6])) {
                 console.log(`${board[i]} has won`);
+                game.win = true;
                 return true;
             // Check diagonals for a win
             } else if (board[4] != "" && ((board[0] == board[4] && board[4] == board[8]) ||
                         (board[2] == board[4] && board[4] == board[6]))){
                 console.log(`${board[4]} has won`);
+                game.win = true;
                 return true;
             }
         }
@@ -75,14 +79,16 @@ const game = (function() {
         return tie;
     }
     const userMove = function(box) {
-        if (board[box.id] == "") {
-            board[box.id] = user.token;
-            box.textContent = user.token;
-            // Player moves:
-            console.log("Player moved", game.board);
-            // Opponent moves:
-            if (!(tieCheck()) && !(winCheck())) {
-                oppMove();
+        if (!game.win) {
+            if (board[box.id] == "") {
+                board[box.id] = user.token;
+                box.textContent = user.token;
+                // Player moves:
+                console.log("Player moved", game.board);
+                // Opponent moves:
+                if (!(tieCheck()) && !(winCheck())) {
+                    oppMove();
+                }
             }
         }
     }
