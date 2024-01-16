@@ -1,1 +1,1 @@
-# Odin-TicTacToe
+This was another project I made following The Odin Project curriculum. While the code itself wasn't suepr complicated, I found that organizing the program into objects a little unintuitive at first. However by the time I had completed it, I had realized the value of keeping programs in a compact format like objects. Another really cool learning experience.
