@@ -13,10 +13,10 @@ const player = function(token) {
 const game = (function() {
     let board = gameBoard.board;
     let win = false;
+    const container = document.getElementById("container");
     // Visual Board
     const initBoard = (function() {
         for (i=0; i<3; i++) {
-            const container = document.getElementById("container");
             let row = document.createElement('div');
             row.classList.add("row");
             container.appendChild(row);
@@ -56,10 +56,12 @@ const game = (function() {
             if (board[i * 3] != "" && (board[i * 3] == board[(i * 3) + 1] && board[(i * 3) + 1] == board[(i * 3) + 2])) {
                     console.log(`${board[i * 3]} has won`);
                     game.win = true;
+                    winMessage(board[i * 3]);
                     return true;
             // Check columns for a win
             } else if (board[i] != "" && (board[i] == board[i+3] && board[i+3] == board[i+6])) {
                 console.log(`${board[i]} has won`);
+                winMessage(board[i]);
                 game.win = true;
                 return true;
             // Check diagonals for a win
@@ -67,6 +69,7 @@ const game = (function() {
                         (board[2] == board[4] && board[4] == board[6]))){
                 console.log(`${board[4]} has won`);
                 game.win = true;
+                winMessage(board[4]);
                 return true;
             }
         }
@@ -86,6 +89,12 @@ const game = (function() {
         } else {
             return false;
         }
+    }
+    const winMessage = function(winner) {
+        let winWin = document.createElement("div");
+        winWin.classList.add("winMessage");
+        winWin.textContent = `${winner} has won!`;
+        container.appendChild(winWin);
     }
     const userMove = function(box) {
         if (!game.win) {
