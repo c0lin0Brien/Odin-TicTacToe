@@ -1,8 +1,8 @@
 // Making the Game Board
 const gameBoard = (function() {
-    let board = ["1", "2", "3",
-                 "4", "5", "6",
-                 "7", "8", "9"];
+    let board = ["", "", "",
+                 "", "", "",
+                 "", "", ""];
     return {board};
 })();
 // Player Object
@@ -14,6 +14,7 @@ const game = (function() {
     let board = gameBoard.board;
     let win = false;
     let borders = [];
+    // Visual Board
     const initBoard = (function() {
         for (i=0; i<3; i++) {
             const container = document.getElementById("container");
@@ -24,11 +25,10 @@ const game = (function() {
                 let box = document.createElement('div');
                 row.appendChild(box);
                 box.classList.add("box");
-                // box.textContent = board[(i * 3) + j];
                 box.id = (i * 3) + j;
+                // User Input
                 box.onclick = function () {
-                    board[box.id] = "X";
-                    box.textContent = "X";
+                    userMove(box);
                 }
             }
         }
@@ -69,9 +69,10 @@ const game = (function() {
         }
         return tie;
     }
-    const userMove = function(tile) {
-        if (board[tile] == "") {
-            board[tile] = user.token;
+    const userMove = function(box) {
+        if (board[box.id] == "") {
+            board[box.id] = user.token;
+            box.textContent = user.token;
             // Player moves:
             console.log("Player moved", game.board);
             winCheck();
@@ -83,8 +84,10 @@ const game = (function() {
     }
     const oppMove = function() {
         let choice = Math.floor(Math.random() * 9);
-        if (board[choice] == 0) {
+        let oppSquare = document.getElementById(`${choice}`);
+        if (board[choice] == "") {
             board[choice] = opp.token;
+            oppSquare.textContent = opp.token;
             console.log("Opponent moved", game.board);
             winCheck();
         } else {
